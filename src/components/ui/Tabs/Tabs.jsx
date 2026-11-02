@@ -6,7 +6,7 @@ import styles from "./Tabs.module.css";
 
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-export default function Tabs({ items, label, brand, renderContent }) {
+export default function Tabs({ items, label, brand, inline, renderContent }) {
   const id = useId();
   const [active, setActive] = useState(0);
   const [shown, setShown] = useState(0);
@@ -31,7 +31,7 @@ export default function Tabs({ items, label, brand, renderContent }) {
   };
 
   return (
-    <div className={styles.tabs}>
+    <div className={styles.tabs} data-inline={inline || undefined}>
       <div className={styles.bar}>
         {brand && <Logo className={styles.logo} />}
         <div role="tablist" aria-label={label} className={styles.list}>

@@ -33,7 +33,9 @@
         "play",
         "github",
         "discord",
-        "youtube"
+        "youtube",
+        "colab",
+        "jupyter"
       ]
     },
     "mark": {

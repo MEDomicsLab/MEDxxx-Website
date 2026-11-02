@@ -119,7 +119,27 @@ Set the version once in `site.json → brand.version`: every `{version}` follows
 <details>
 <summary><strong>7. Learn</strong></summary>
 
-`tracks` are the columns. Each has a `title`, a short `meta` label, a `text` and one or more of: a `video`, an `install` command (`code`), tutorial `items` (`title`, `text`, `href`) and an `action` button.
+`tracks` are the columns. Each has a `title`, a short `meta` label, a `text` and one or more of: a `video`, an `install` command (`code`), tutorial `items` (`title`, `text`, `href`) and an `action` button. `linkLabel` sets the text of the item links.
+
+`tabs` splits a column into switchable panels, shown below the column's own content. Each tab has a `label` (the tab name) and the same fields as a column:
+
+```json
+"tabs": [
+  {
+    "label": "Guided Videos",
+    "text": "Short introduction.",
+    "video": { "youtube": "aqz-KE-bpKQ", "title": "Video title", "caption": "Caption" },
+    "action": { "label": "Watch on YouTube", "href": "@playlist", "icon": "youtube" }
+  },
+  {
+    "label": "Proof of Concept",
+    "text": "Short introduction.",
+    "linkLabel": "Open guide",
+    "items": [{ "title": "Step 1", "text": "What it covers.", "href": "@docsApp/guide-1" }],
+    "action": { "label": "Start the guide", "href": "@docsApp/guide", "icon": "book" }
+  }
+]
+```
 
 </details>
 

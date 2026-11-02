@@ -18,6 +18,15 @@
     0 0 2px var(--color-shadow-soft);
 }
 
+.tabs[data-inline] {
+  --panel-inset: 0px;
+}
+
+.tabs[data-inline] .bar {
+  margin: 0 0 22px;
+  padding: 0 6px;
+}
+
 .logo {
   flex: 0 0 40px;
   width: 40px;
@@ -81,6 +90,10 @@
   .bar {
     gap: 6px;
     padding: 4px 10px 4px 6px;
+  }
+
+  .tabs[data-inline] .bar {
+    padding: 4px 6px;
   }
 
   .logo {

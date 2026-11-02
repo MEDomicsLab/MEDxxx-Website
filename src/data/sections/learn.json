@@ -2,22 +2,64 @@
   "$schema": "../_shared/schemas/sections/learn.schema.json",
   "id": "tutorials",
   "title": "Learn {name}, *two ways*",
-  "text": "Lorem ipsum videos for {name}-app, dolor sit amet guides for {name}-pkg.",
+  "text": "Guided videos and a hands-on proof of concept for {name}-app, step-by-step guides for {name}-pkg.",
   "tracks": [
     {
-      "title": "Learn {name}-app with guided videos",
+      "title": "Learn {name}-app",
       "meta": "Desktop application",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "video": {
-        "youtube": "aqz-KE-bpKQ",
-        "title": "{name}-app tutorial",
-        "caption": "Lorem ipsum tutorial"
-      },
-      "action": {
-        "label": "Watch on YouTube",
-        "href": "@playlist",
-        "icon": "youtube"
-      }
+      "tabs": [
+        {
+          "label": "Guided Videos",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "video": {
+            "youtube": "aqz-KE-bpKQ",
+            "title": "{name}-app - Lorem ipsum dolor",
+            "caption": "Lorem ipsum dolor sit amet"
+          },
+          "action": {
+            "label": "Lorem ipsum dolor",
+            "href": "@playlist",
+            "icon": "play"
+          }
+        },
+        {
+          "label": "Proof of Concept",
+          "text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+          "linkLabel": "Open guide",
+          "items": [
+            {
+              "title": "Lorem ipsum",
+              "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+              "href": "@docsApp/guide-1"
+            },
+            {
+              "title": "Dolor sit amet",
+              "text": "Sed do eiusmod tempor incididunt ut labore et dolore.",
+              "href": "@docsApp/guide-2"
+            },
+            {
+              "title": "Consectetur elit",
+              "text": "Ut enim ad minim veniam, quis nostrud exercitation.",
+              "href": "@docsApp/guide-3"
+            },
+            {
+              "title": "Tempor incididunt",
+              "text": "Duis aute irure dolor in reprehenderit in voluptate.",
+              "href": "@docsApp/guide-4"
+            },
+            {
+              "title": "Magna aliqua",
+              "text": "Excepteur sint occaecat cupidatat non proident.",
+              "href": "@docsApp/guide-5"
+            }
+          ],
+          "action": {
+            "label": "Lorem ipsum dolor",
+            "href": "@docsApp/guide",
+            "icon": "book"
+          }
+        }
+      ]
     },
     {
       "title": "Learn {name}-pkg, step by step",
