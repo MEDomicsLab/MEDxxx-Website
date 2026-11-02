@@ -3,7 +3,8 @@
   gap: 72px;
 }
 
-.track {
+.track,
+.panel {
   display: grid;
   align-content: start;
   gap: 22px;

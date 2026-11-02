@@ -1,3 +1,4 @@
+import { plain } from "../../../lib/text.js";
 import Button from "../../ui/Button/Button.jsx";
 import ColumnHeader from "../../ui/ColumnHeader/ColumnHeader.jsx";
 import CodeBlock from "../../ui/CodeBlock/CodeBlock.jsx";
@@ -6,7 +7,32 @@ import RichText from "../../ui/RichText/RichText.jsx";
 import Section from "../../ui/Section/Section.jsx";
 import SectionHeader from "../../ui/SectionHeader/SectionHeader.jsx";
 import VideoEmbed from "../../ui/VideoEmbed/VideoEmbed.jsx";
+import Tabs from "../../ui/Tabs/Tabs.jsx";
 import styles from "./Learn.module.css";
+
+function Body({ content }) {
+  return (
+    <>
+      {content.text && (
+        <p className={styles.text}>
+          <RichText text={content.text} />
+        </p>
+      )}
+      {content.video && <VideoEmbed video={content.video} className={styles.video} />}
+      {content.install && (
+        <CodeBlock code={content.install.code} language={content.install.language} compact />
+      )}
+      {content.items?.length > 0 && (
+        <LinkRows items={content.items} label={content.linkLabel} className={styles.rows} />
+      )}
+      {content.action && (
+        <div className={styles.action}>
+          <Button link={content.action} variant={content.action.variant ?? "primary"} />
+        </div>
+      )}
+    </>
+  );
+}
 
 function Track({ track, index }) {
   return (
@@ -16,22 +42,18 @@ function Track({ track, index }) {
       style={{ "--reveal-delay": `${index * 120}ms` }}
     >
       <ColumnHeader title={track.title} meta={track.meta} />
-      {track.text && (
-        <p className={styles.text}>
-          <RichText text={track.text} />
-        </p>
-      )}
-      {track.video && <VideoEmbed video={track.video} className={styles.video} />}
-      {track.install && (
-        <CodeBlock code={track.install.code} language={track.install.language} compact />
-      )}
-      {track.items?.length > 0 && (
-        <LinkRows items={track.items} label={track.linkLabel} className={styles.rows} />
-      )}
-      {track.action && (
-        <div className={styles.action}>
-          <Button link={track.action} variant={track.action.variant ?? "primary"} />
-        </div>
+      <Body content={track} />
+      {track.tabs?.length > 0 && (
+        <Tabs
+          inline
+          items={track.tabs}
+          label={plain(track.title)}
+          renderContent={(tab) => (
+            <div className={styles.panel}>
+              <Body content={tab} />
+            </div>
+          )}
+        />
       )}
     </article>
   );

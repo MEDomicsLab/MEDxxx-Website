@@ -1,8 +1,68 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Learn",
-  "description": "Columns of videos, install code and tutorial links.",
+  "description": "Columns of videos, install code and tutorial links. A column can hold tabs, each with the same content fields.",
   "type": "object",
+  "definitions": {
+    "text": {
+      "type": "string"
+    },
+    "video": {
+      "$ref": "../common.schema.json#/definitions/video"
+    },
+    "install": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        }
+      },
+      "required": ["code"],
+      "additionalProperties": false
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "href": {
+            "$ref": "../common.schema.json#/definitions/href"
+          },
+          "to": {
+            "type": "string"
+          },
+          "icon": {
+            "$ref": "../common.schema.json#/definitions/icon"
+          }
+        },
+        "required": ["title"],
+        "anyOf": [
+          {
+            "required": ["href"]
+          },
+          {
+            "required": ["to"]
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "linkLabel": {
+      "type": "string"
+    },
+    "action": {
+      "$ref": "../common.schema.json#/definitions/link"
+    }
+  },
   "properties": {
     "$schema": {
       "type": "string"
@@ -35,63 +95,33 @@
             "type": "string",
             "description": "Quiet note on the right of the title, e.g. Desktop application."
           },
-          "text": {
-            "type": "string"
-          },
-          "video": {
-            "$ref": "../common.schema.json#/definitions/video"
-          },
-          "install": {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string"
-              },
-              "language": {
-                "type": "string"
-              }
-            },
-            "required": ["code"],
-            "additionalProperties": false
-          },
-          "items": {
+          "text": { "$ref": "#/definitions/text" },
+          "video": { "$ref": "#/definitions/video" },
+          "install": { "$ref": "#/definitions/install" },
+          "items": { "$ref": "#/definitions/items" },
+          "linkLabel": { "$ref": "#/definitions/linkLabel" },
+          "action": { "$ref": "#/definitions/action" },
+          "tabs": {
             "type": "array",
+            "minItems": 1,
+            "description": "Switchable panels shown below the track's own content.",
             "items": {
               "type": "object",
               "properties": {
-                "title": {
-                  "type": "string"
+                "label": {
+                  "type": "string",
+                  "description": "Tab button text."
                 },
-                "text": {
-                  "type": "string"
-                },
-                "href": {
-                  "$ref": "../common.schema.json#/definitions/href"
-                },
-                "to": {
-                  "type": "string"
-                },
-                "icon": {
-                  "$ref": "../common.schema.json#/definitions/icon"
-                }
+                "text": { "$ref": "#/definitions/text" },
+                "video": { "$ref": "#/definitions/video" },
+                "install": { "$ref": "#/definitions/install" },
+                "items": { "$ref": "#/definitions/items" },
+                "linkLabel": { "$ref": "#/definitions/linkLabel" },
+                "action": { "$ref": "#/definitions/action" }
               },
-              "required": ["title"],
-              "anyOf": [
-                {
-                  "required": ["href"]
-                },
-                {
-                  "required": ["to"]
-                }
-              ],
+              "required": ["label"],
               "additionalProperties": false
             }
-          },
-          "linkLabel": {
-            "type": "string"
-          },
-          "action": {
-            "$ref": "../common.schema.json#/definitions/link"
           }
         },
         "required": ["title"],
