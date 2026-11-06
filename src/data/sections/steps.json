@@ -7,24 +7,19 @@
   "items": [
     {
       "title": "Lorem ipsum",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit with {name}.",
-      "mark": "loop"
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit with {name}."
     },
     {
       "title": "Dolor sit amet",
-      "text": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "mark": "wave"
+      "text": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     },
     {
       "title": "Consectetur elit",
-      "text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
-      "mark": "circle"
+      "text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco."
     },
     {
       "title": "Tempor incididunt",
-      "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse.",
-      "mark": "check"
+      "text": "Duis aute irure dolor in reprehenderit in voluptate velit esse."
     }
-  ],
-  "scrollProgress": true
+  ]
 }

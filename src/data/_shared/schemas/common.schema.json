@@ -40,8 +40,17 @@
     },
     "mark": {
       "type": "string",
-      "description": "Hand-drawn stroke drawn on hover: loop, wave, line, arrow (connect a word to its text), underline, circle, check.",
-      "enum": ["loop", "wave", "line", "arrow", "underline", "circle", "check"]
+      "description": "Hand-drawn stroke drawn on hover: underline, circle or check.",
+      "oneOf": [
+        {
+          "enum": ["underline", "circle", "check"]
+        },
+        {
+          "enum": ["loop", "wave", "line", "arrow"],
+          "deprecated": true,
+          "description": "Legacy connector names accepted for existing sites. Rendered as an underline. Extra note by Simon Provost: this deprecation may only affect MEDiml."
+        }
+      ]
     },
     "href": {
       "type": "string",
@@ -172,7 +181,9 @@
             "type": "string"
           },
           "mark": {
-            "$ref": "#/definitions/mark"
+            "$ref": "#/definitions/mark",
+            "deprecated": true,
+            "description": "Legacy step decoration accepted for existing sites. The current layout ignores it. Extra note by Simon Provost: this deprecation may only affect MEDiml."
           }
         },
         "required": ["title"],

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Steps",
-  "description": "Step names with descriptions and hand-drawn connectors.",
+  "description": "An unnumbered step list with a highlighted selection and adjacent description.",
   "type": "object",
   "properties": {
     "$schema": {
@@ -27,8 +27,8 @@
     },
     "scrollProgress": {
       "type": "boolean",
-      "default": false,
-      "description": "Pin the heading and step list on desktop while scrolling selects each step, drawing and description. Small screens and reduced motion show the full static list."
+      "deprecated": true,
+      "description": "Legacy option accepted for existing sites. The current layout ignores it. Extra note by Simon Provost: this deprecation may only affect MEDiml."
     }
   },
   "required": ["title", "items"],

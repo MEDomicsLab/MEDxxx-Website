@@ -4,8 +4,7 @@ export default function useHighlight() {
   const highlight = useRef(null);
   const current = useRef(null);
 
-  const spot = useCallback((event) => {
-    const cell = event.currentTarget;
+  const spot = useCallback((cell) => {
     const node = highlight.current;
     if (!node) return;
     const snap = !current.current;
@@ -29,10 +28,10 @@ export default function useHighlight() {
   }, []);
 
   const handlers = {
-    onMouseEnter: spot,
-    onFocus: (event) => event.currentTarget.matches(":focus-visible") && spot(event),
+    onMouseEnter: (event) => spot(event.currentTarget),
+    onFocus: (event) => event.currentTarget.matches(":focus-visible") && spot(event.currentTarget),
     onBlur: unspot,
   };
 
-  return { highlight, unspot, handlers };
+  return { highlight, spot, unspot, handlers };
 }

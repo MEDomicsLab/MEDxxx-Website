@@ -101,8 +101,8 @@ Every section has a `title`, a `text` and an `id` (its anchor, such as `/#paper`
 <summary><strong>5. Steps</strong></summary>
 
 - `items`: each step's `title` and `text`. `{count}` in the section title becomes the number of steps.
-- `mark`: the hand-drawn stroke of a step: `loop`, `wave`, `line` and `arrow` connect the step to its text; `underline`, `circle` and `check` draw on the word.
-- `scrollProgress`: `true` walks through the steps while visitors scroll (large screens only).
+
+The first step is selected by default. Hover a row to preview its description; leaving the list returns to the first step. Keyboard users can select with the arrow keys, and touch users can tap a row. On small screens, the description sits below the list.
 
 </details>
 
