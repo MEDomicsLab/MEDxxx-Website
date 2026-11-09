@@ -25,7 +25,6 @@ export default function useHeaderMotion({ root, dock, notice, bar, held, pathnam
     const node = bar.current;
     const still = window.matchMedia("(prefers-reduced-motion: reduce)");
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
-    let anchor = null;
     let hidden = false;
     let hovering = false;
     let travel = 0;
@@ -64,7 +63,7 @@ export default function useHeaderMotion({ root, dock, notice, bar, held, pathnam
     };
 
     const released = () => {
-      if (!anchor?.isConnected) anchor = releasePoint();
+      const anchor = releasePoint();
       return (
         !!anchor &&
         (anchor.hasAttribute("data-nav-release")

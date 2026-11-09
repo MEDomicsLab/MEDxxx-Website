@@ -54,8 +54,19 @@ Every section has a `title`, a `text` and an `id` (its anchor, such as `/#paper`
 - `media`: the main screenshot, then an optional smaller one floating over it.
 - `badges`: up to four short labels around the screenshots.
 - `layout`: `"split"` puts the text beside the screenshots, `"center"` above them.
-- `scrollExpand`: `true` widens the screenshots while visitors scroll (large screens only).
+- `expansion`: the animation `duration` in seconds and the `label` below the screenshots.
 - `partners`: a `label` and the logos, each with `name`, `logo`, optional `logoDark` (for dark mode) and optional `href`.
+
+Click the screenshots or their label to expand, then click the expanded image to collapse. Enter and Space also work. The split layout expands on large screens; small screens and reduced motion keep the static layout. Scrolling leaves the image still, and the navbar starts hiding as visitors reach it.
+
+```json
+"expansion": {
+  "duration": 0.6,
+  "label": "Expand"
+}
+```
+
+The label and its cursor hide while expanded. The cursor moves when the image or label is hovered or focused.
 
 </details>
 

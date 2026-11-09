@@ -72,6 +72,53 @@
   border-radius: var(--radius-lg);
 }
 
+.expandControl {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  cursor: zoom-in;
+}
+
+.expandControl[aria-expanded="true"] {
+  cursor: zoom-out;
+}
+
+.expandControl:focus-visible {
+  outline-color: var(--color-on-accent);
+  outline-offset: -5px;
+}
+
+.expandLabel {
+  position: absolute;
+  top: calc(100% + 14px);
+  inset-inline: 0;
+  width: max-content;
+  max-width: 100%;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  color: var(--color-muted);
+  text-align: center;
+  transition: opacity 0.2s ease;
+}
+
+.expandLabel[data-expanded] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.expandCursor {
+  flex-shrink: 0;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .main {
   position: absolute;
   top: 14%;
@@ -223,6 +270,11 @@ a.partner:hover .logo {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .stageWrap:is(:hover, :focus-within) .expandCursor {
+    transform: translate(-6px, -6px);
+    transition-duration: 0.7s;
+  }
+
   :global(.js) .lineInner {
     transform: translateY(108%);
     animation: rise 1.25s var(--ease-out-expo) forwards;

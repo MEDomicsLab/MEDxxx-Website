@@ -59,5 +59,8 @@
       }
     ]
   },
-  "scrollExpand": true
+  "expansion": {
+    "duration": 0.6,
+    "label": "Expand!"
+  }
 }

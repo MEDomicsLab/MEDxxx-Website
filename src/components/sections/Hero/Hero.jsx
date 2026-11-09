@@ -5,6 +5,7 @@ import { lines, plain } from "../../../lib/text.js";
 import { fill } from "../../../lib/tokens.js";
 import useHeroMotion from "../../../lib/useHeroMotion.js";
 import ActionLinks from "../../ui/ActionLinks/ActionLinks.jsx";
+import Icon from "../../ui/Icon/Icon.jsx";
 import Marquee from "../../ui/Marquee/Marquee.jsx";
 import RichText from "../../ui/RichText/RichText.jsx";
 import { Screen } from "../../ui/Screen/Screen.jsx";
@@ -46,7 +47,7 @@ function Partner({ partner }) {
 export default function Hero({
   id,
   layout = "split",
-  scrollExpand = false,
+  expansion,
   title,
   text,
   actions = [],
@@ -57,10 +58,18 @@ export default function Hero({
   const scene = useRef(null);
   const copy = useRef(null);
   const stage = useRef(null);
+  const expandControl = useRef(null);
   const [main, inset] = media;
-  const expand = scrollExpand && layout === "split" && !!main;
+  const expand = layout === "split" && !!main;
 
-  useHeroMotion({ scene, copy, stage, expand, classes: styles });
+  const { clickable, expanded, toggle } = useHeroMotion({
+    scene,
+    copy,
+    stage,
+    expand,
+    duration: expansion?.duration ?? 0.6,
+    classes: styles,
+  });
 
   return (
     <section
@@ -95,7 +104,12 @@ export default function Hero({
         </div>
 
         {main && (
-          <div className={styles.stageWrap} data-reveal="" style={{ "--reveal-delay": "300ms" }}>
+          <div
+            className={styles.stageWrap}
+            data-nav-release={layout === "split" ? "" : undefined}
+            data-reveal=""
+            style={{ "--reveal-delay": "300ms" }}
+          >
             <div ref={stage} className={cx(styles.stage, "paper")}>
               <Screen
                 image={main}
@@ -110,7 +124,33 @@ export default function Hero({
                   {fill(badge)}
                 </span>
               ))}
+              {clickable && (
+                <button
+                  type="button"
+                  ref={expandControl}
+                  className={styles.expandControl}
+                  aria-label={expanded ? ui.a11y.collapseHero : ui.a11y.expandHero}
+                  aria-expanded={expanded}
+                  onClick={toggle}
+                />
+              )}
             </div>
+            {clickable && expansion?.label && (
+              <button
+                type="button"
+                className={styles.expandLabel}
+                data-expanded={expanded || undefined}
+                aria-hidden={expanded || undefined}
+                tabIndex={expanded ? -1 : 0}
+                onClick={() => {
+                  expandControl.current?.focus({ preventScroll: true });
+                  toggle();
+                }}
+              >
+                <Icon name="cursor" size={14} className={styles.expandCursor} />
+                {fill(expansion.label)}
+              </button>
+            )}
           </div>
         )}
       </div>

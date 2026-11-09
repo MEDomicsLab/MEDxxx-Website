@@ -17,9 +17,15 @@
         },
         "pauseVideo": {
           "type": "string"
+        },
+        "expandHero": {
+          "type": "string"
+        },
+        "collapseHero": {
+          "type": "string"
         }
       },
-      "required": ["playVideo", "pauseVideo"]
+      "required": ["playVideo", "pauseVideo", "expandHero", "collapseHero"]
     },
     "copy": {
       "type": "string"

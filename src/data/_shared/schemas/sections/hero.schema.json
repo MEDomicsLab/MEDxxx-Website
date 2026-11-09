@@ -76,10 +76,23 @@
       "enum": ["split", "center"],
       "description": "split: text left, screenshots right. center: stacked."
     },
-    "scrollExpand": {
-      "type": "boolean",
-      "default": false,
-      "description": "Expand a split hero image to the content width while its text slides underneath on scroll. Reverses when scrolling up. Uses the static layout on small screens and with reduced motion."
+    "expansion": {
+      "type": "object",
+      "description": "Click a split hero image or its label to expand it while its text slides underneath. Large screens only; static with reduced motion.",
+      "properties": {
+        "duration": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "default": 0.6,
+          "description": "Expansion animation duration in seconds."
+        },
+        "label": {
+          "type": "string",
+          "description": "Optional label with a cursor below the image. Clicking it expands the image. Hidden while expanded and when expansion is unavailable."
+        }
+      },
+      "additionalProperties": false,
+      "examples": [{ "duration": 0.6, "label": "Expand!" }]
     }
   },
   "required": ["title"],
