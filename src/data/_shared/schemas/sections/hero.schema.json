@@ -88,7 +88,7 @@
         },
         "label": {
           "type": "string",
-          "description": "Optional label with a cursor below the image. Clicking it expands the image. Hidden while expanded and when expansion is unavailable."
+          "description": "Optional label with a cursor below the image. Change its text to customise it, or use an empty string or omit label to hide both the label and cursor. Clicking it expands the image. Hidden while expanded and when expansion is unavailable."
         }
       },
       "additionalProperties": false,

@@ -62,9 +62,11 @@ Click the screenshots or their label to expand, then click the expanded image to
 ```json
 "expansion": {
   "duration": 0.6,
-  "label": "Expand"
+  "label": "Expand!"
 }
 ```
+
+The template uses `"label": "Expand!"`. Change the text to customise it. Set `"label": ""` or remove `label` to hide both the text and cursor; the image still expands when clicked.
 
 The label and its cursor hide while expanded. The cursor moves when the image or label is hovered or focused.
 
