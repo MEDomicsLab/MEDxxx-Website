@@ -88,11 +88,11 @@
         },
         "label": {
           "type": "string",
-          "description": "Optional label with a cursor below the image. Change its text to customise it, or use an empty string or omit label to hide both the label and cursor. Clicking it expands the image. Hidden while expanded and when expansion is unavailable."
+          "description": "Optional override for the shared label in _shared/ui.json → expand. Omit to use the shared default, or set an empty string to hide both the label and cursor. Clicking it expands the image. Hidden while expanded and when expansion is unavailable."
         }
       },
       "additionalProperties": false,
-      "examples": [{ "duration": 0.6, "label": "Expand!" }]
+      "examples": [{ "duration": 0.6 }, { "label": "View larger" }, { "label": "" }]
     }
   },
   "required": ["title"],

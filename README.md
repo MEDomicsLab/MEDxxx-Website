@@ -54,19 +54,26 @@ Every section has a `title`, a `text` and an `id` (its anchor, such as `/#paper`
 - `media`: the main screenshot, then an optional smaller one floating over it.
 - `badges`: up to four short labels around the screenshots.
 - `layout`: `"split"` puts the text beside the screenshots, `"center"` above them.
-- `expansion`: the animation `duration` in seconds and the `label` below the screenshots.
+- `expansion`: the animation `duration` in seconds and an optional `label` override below the screenshots.
 - `partners`: a `label` and the logos, each with `name`, `logo`, optional `logoDark` (for dark mode) and optional `href`.
 
 Click the screenshots or their label to expand, then click the expanded image to collapse. Enter and Space also work. The split layout expands on large screens; small screens and reduced motion keep the static layout. Scrolling leaves the image still, and the navbar starts hiding as visitors reach it.
 
 ```json
 "expansion": {
-  "duration": 0.6,
-  "label": "Expand!"
+  "duration": 0.6
 }
 ```
 
-The template uses `"label": "Expand!"`. Change the text to customise it. Set `"label": ""` or remove `label` to hide both the text and cursor; the image still expands when clicked.
+The shared UI supplies `Expand!` from `_shared/ui.json → expand`, including after `npm run update-ui`. In `hero.json`:
+
+| `expansion.label` | Result |
+| --- | --- |
+| Omitted, including when `expansion` is absent | Shared `Expand!` label and cursor |
+| `"View larger"` | Custom text and cursor |
+| `""` | Hide both the label and cursor; the image remains clickable |
+
+Remove a custom `label` to restore the shared default.
 
 The label and its cursor hide while expanded. The cursor moves when the image or label is hovered or focused.
 
@@ -207,7 +214,7 @@ Keep screenshots plain: the site adds the blue paper behind them.
 npm run update-ui
 ```
 
-It copies the latest UI from the template in `package.json → template.repository` (code, styles, `_shared/`, scripts, fonts) and leaves your `site.json`, `sections/` and images alone. Changes come staged: review them, run `npm run check`, then commit. `npm run update-ui -- v1.2.0` pins a tag instead of `main`. The template cuts tags from **Actions → Release** (patch, minor or major), or locally with `npm version minor -m "chore(release): bump version to %s"` and `git push --follow-tags`. Keep your edits outside the paths listed in `template.ui`, or they are overwritten.
+It copies the latest UI from the template in `package.json → template.repository` (code, styles, `_shared/`, scripts, fonts) and leaves your `site.json`, `sections/` and images alone. Shared defaults such as the hero's `Expand!` label arrive without adding fields to your section JSON; explicit overrides stay in place. Changes come staged: review them, run `npm run check`, then commit. `npm run update-ui -- v1.2.0` pins a tag instead of `main`. The template cuts tags from **Actions → Release** (patch, minor or major), or locally with `npm version minor -m "chore(release): bump version to %s"` and `git push --follow-tags`. Keep your edits outside the paths listed in `template.ui`, or they are overwritten.
 
 ## <a id="license"></a><img src="docs/assets/icons/lucide/scale.svg" width="32" alt="" /> License
 

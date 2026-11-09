@@ -61,6 +61,7 @@ export default function Hero({
   const expandControl = useRef(null);
   const [main, inset] = media;
   const expand = layout === "split" && !!main;
+  const expandLabel = expansion?.label ?? ui.expand;
 
   const { clickable, expanded, toggle } = useHeroMotion({
     scene,
@@ -135,7 +136,7 @@ export default function Hero({
                 />
               )}
             </div>
-            {clickable && expansion?.label && (
+            {clickable && expandLabel && (
               <button
                 type="button"
                 className={styles.expandLabel}
@@ -148,7 +149,7 @@ export default function Hero({
                 }}
               >
                 <Icon name="cursor" size={14} className={styles.expandCursor} />
-                {fill(expansion.label)}
+                {fill(expandLabel)}
               </button>
             )}
           </div>
