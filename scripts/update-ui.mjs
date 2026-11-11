@@ -1,4 +1,4 @@
-import { execFileSync } from "node:child_process";
+import { execFileSync, execSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 
 const ref = process.argv[2] ?? "main";
@@ -28,6 +28,6 @@ if (!changed.length) {
   console.log(`The UI already matches ${repository} (${ref}).`);
   process.exit(0);
 }
-if (changed.includes("package-lock.json")) run("npm", "ci");
+if (changed.includes("package-lock.json")) execSync("npm ci", { stdio: "inherit" });
 run("git", "diff", "--staged", "--stat", "--", ...paths);
 console.log(`\nUI updated from ${repository} (${ref}). Run npm run check, then commit.`);
