@@ -17,7 +17,7 @@ Required Node.js 20+.
 
 1. **Run it:** `npm ci`, then `npm run dev` ([localhost:5176](http://localhost:5176)).
 2. **Name your app** in [`src/data/site.json`](./src/data/site.json): name, version, logos, links, menu and footer. See [App settings](#app-settings).
-3. **Write the seven sections**, one JSON file each, in [`src/data/sections/`](./src/data/sections). See [The page](#the-page).
+3. **Write the six sections**, one JSON file each, in [`src/data/sections/`](./src/data/sections). See [The page](#the-page).
 4. **Add your screenshots and logos** to [`assets/`](./assets), then `npm run assets`. See [Images](#images).
 5. **Check and build:** `npm run check`, then `npm run build`, and deploy `dist/`.
 
@@ -26,25 +26,24 @@ You only edit `site.json` and `sections/`:
 ```
 src/data/
 ├── site.json   your app: name, links, menu, footer, SEO
-├── sections/   the seven sections of the page
+├── sections/   the six sections of the page
 └── _shared/    the MEDomicsLab look, interface words and schemas: leave as is
 ```
 
 ## <a id="the-page"></a><img src="docs/assets/icons/lucide/house.svg" width="32" alt="" /> The page
 
-Seven fixed sections, in this order.
+Six fixed sections, in this order.
 
 | Section     | File                                                 | What it shows                                   |
 | ----------- | ---------------------------------------------------- | ----------------------------------------------- |
 | 1. Hero     | [`hero.json`](./src/data/sections/hero.json)         | Title, buttons, screenshots and partner logos   |
 | 2. Discover | [`discover.json`](./src/data/sections/discover.json) | An introduction video beside a short list       |
 | 3. Paper    | [`paper.json`](./src/data/sections/paper.json)       | Your publications in tabs, with their PDFs      |
-| 4. Features | [`features.json`](./src/data/sections/features.json) | Screenshots that change as visitors scroll      |
-| 5. Steps    | [`steps.json`](./src/data/sections/steps.json)       | How your app works, step by step                |
-| 6. Download | [`download.json`](./src/data/sections/download.json) | Installers for each system and troubleshooting  |
-| 7. Learn    | [`learn.json`](./src/data/sections/learn.json)       | Video playlists, install commands and tutorials |
+| 4. Features | [`features.json`](./src/data/sections/features.json) | Screenshots selected by hovering or scrolling   |
+| 5. Download | [`download.json`](./src/data/sections/download.json) | Installers for each system and troubleshooting  |
+| 6. Learn    | [`learn.json`](./src/data/sections/learn.json)       | Video playlists, install commands and tutorials |
 
-Every section has a `title`, a `text` and an `id` (its anchor, such as `/#paper`). All but the hero accept `align`, the layout of the title and its text: `"split"` side by side (default for discover, download and learn) or `"center"` stacked and centred (default for paper, features and steps). The `$schema` line at the top of each file links it to its rules, so VS Code and JetBrains IDEs autocomplete the fields and underline typos.
+Every section has a `title`, a `text` and an `id` (its anchor, such as `/#paper`). All but the hero accept `align`, the layout of the title and its text: `"split"` side by side (default for discover, download and learn) or `"center"` stacked and centred (default for paper and features). The `$schema` line at the top of each file links it to its rules, so VS Code and JetBrains IDEs autocomplete the fields and underline typos.
 
 <details>
 <summary><strong>1. Hero</strong></summary>
@@ -54,10 +53,10 @@ Every section has a `title`, a `text` and an `id` (its anchor, such as `/#paper`
 - `media`: the main screenshot, then an optional smaller one floating over it.
 - `badges`: up to four short labels around the screenshots.
 - `layout`: `"split"` puts the text beside the screenshots, `"center"` above them.
-- `expansion`: the animation `duration` in seconds and an optional `label` override below the screenshots.
+- `expansion`: the animation `duration` in seconds and optional `label` and `collapseLabel` overrides below the screenshots.
 - `partners`: a `label` and the logos, each with `name`, `logo`, optional `logoDark` (for dark mode) and optional `href`.
 
-Click the screenshots or their label to expand, then click the expanded image to collapse. Enter and Space also work. The split layout expands on large screens; small screens and reduced motion keep the static layout. Scrolling leaves the image still, and the navbar starts hiding as visitors reach it.
+Click the screenshots or their label to expand, then click either again to collapse. Enter and Space also work. The split layout expands on large screens; small screens and reduced motion keep the static layout. Scrolling leaves the image still, and the navbar starts hiding as visitors reach it.
 
 ```json
 "expansion": {
@@ -67,15 +66,15 @@ Click the screenshots or their label to expand, then click the expanded image to
 
 The shared UI supplies `Expand!` from `_shared/ui.json → expand`, including after `npm run update-ui`. In `hero.json`:
 
-| `expansion.label` | Result |
-| --- | --- |
-| Omitted, including when `expansion` is absent | Shared `Expand!` label and cursor |
-| `"View larger"` | Custom text and cursor |
-| `""` | Hide both the label and cursor; the image remains clickable |
+| `expansion.label`                             | Result                                                      |
+| --------------------------------------------- | ----------------------------------------------------------- |
+| Omitted, including when `expansion` is absent | Shared `Expand!` label and cursor                           |
+| `"View larger"`                               | Custom text and cursor                                      |
+| `""`                                          | Hide both the label and cursor; the image remains clickable |
 
 Remove a custom `label` to restore the shared default.
 
-The label and its cursor hide while expanded. The cursor moves when the image or label is hovered or focused.
+The label and cursor stay centred below the image during expansion and collapse. While expanded, the label uses shared `Collapse!` wording or `expansion.collapseLabel`. The cursor moves when the image or label is hovered or focused.
 
 </details>
 
@@ -115,19 +114,17 @@ The label and its cursor hide while expanded. The cursor moves when the image or
 
 `steps` lists the screenshots in order. Each has a `title`, a `text`, an `image` (see [Images](#images)) and optional `links`.
 
-</details>
+`interaction` selects the desktop behaviour:
 
-<details>
-<summary><strong>5. Steps</strong></summary>
+- `"hover"` (default, including when omitted): the page scrolls freely. The first screenshot is selected; hover, focus or click a title to preview another. Leaving the preview returns to the first screenshot unless a keyboard selection retains focus. Arrow keys, Home and End also select screenshots.
+- `"scroll"`: the stage stays pinned while scrolling advances through the screenshots. Clicking a title scrolls to it.
 
-- `items`: each step's `title` and `text`. `{count}` in the section title becomes the number of steps.
-
-The first step is selected by default. Hover a row to preview its description; leaving the list returns to the first step. Keyboard users can select with the arrow keys, and touch users can tap a row. On small screens, the description sits below the list.
+Both modes keep the same slide animation. Small screens and reduced motion show a static list.
 
 </details>
 
 <details>
-<summary><strong>6. Download</strong></summary>
+<summary><strong>5. Download</strong></summary>
 
 - `download`: a `title`, a `release` label and the installers in `items`, each with a `label`, an `href`, an optional `file` name and an optional `os` (`windows`, `mac` or `linux`). The visitor's system is highlighted.
 - `help`: a troubleshooting `title` and `items`, each with a `title`, a `text` and optional `code`.
@@ -137,7 +134,7 @@ Set the version once in `site.json → brand.version`: every `{version}` follows
 </details>
 
 <details>
-<summary><strong>7. Learn</strong></summary>
+<summary><strong>6. Learn</strong></summary>
 
 `tracks` are the columns. Each has a `title`, a short `meta` label, a `text` and one or more of: a `video`, an `install` command (`code`), tutorial `items` (`title`, `text`, `href`) and an `action` button. `linkLabel` sets the text of the item links.
 
@@ -214,7 +211,7 @@ Keep screenshots plain: the site adds the blue paper behind them.
 npm run update-ui
 ```
 
-It copies the latest UI from the template in `package.json → template.repository` (code, styles, `_shared/`, scripts, fonts) and leaves your `site.json`, `sections/` and images alone. Shared defaults such as the hero's `Expand!` label arrive without adding fields to your section JSON; explicit overrides stay in place. Changes come staged: review them, run `npm run check`, then commit. `npm run update-ui -- v1.2.0` pins a tag instead of `main`. The template cuts tags from **Actions → Release** (patch, minor or major), or locally with `npm version minor -m "chore(release): bump version to %s"` and `git push --follow-tags`. Keep your edits outside the paths listed in `template.ui`, or they are overwritten.
+It copies the latest UI from the template in `package.json → template.repository` (code, styles, `_shared/`, scripts, fonts) and leaves your `site.json`, `sections/` and images alone. Shared defaults, including hover selection in Features and the hero's expand/collapse labels, arrive without adding fields to your section JSON; explicit overrides stay in place. Changes come staged: review them, run `npm run check`, then commit. `npm run update-ui -- v1.2.0` pins a tag instead of `main`. The template cuts tags from **Actions → Release** (patch, minor or major), or locally with `npm version minor -m "chore(release): bump version to %s"` and `git push --follow-tags`. Keep your edits outside the paths listed in `template.ui`, or they are overwritten.
 
 ## <a id="license"></a><img src="docs/assets/icons/lucide/scale.svg" width="32" alt="" /> License
 
