@@ -94,6 +94,14 @@ export async function reportDeprecations(directory = root) {
   return warnings;
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+const deferred =
+  process.env.npm_lifecycle_event === "postinstall" &&
+  process.env.MEDXXX_DEFER_DEPRECATIONS === "1";
+
+if (
+  !deferred &&
+  process.argv[1] &&
+  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
   await reportDeprecations();
 }

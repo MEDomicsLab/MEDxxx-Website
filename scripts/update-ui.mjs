@@ -27,7 +27,12 @@ const changed = lines(git("diff", "--staged", "--name-only", "--", ...paths));
 if (!changed.length) {
   console.log(`The UI already matches ${repository} (${ref}).`);
 } else {
-  if (changed.includes("package-lock.json")) execSync("npm ci", { stdio: "inherit" });
+  if (changed.includes("package-lock.json")) {
+    execSync("npm ci", {
+      stdio: "inherit",
+      env: { ...process.env, MEDXXX_DEFER_DEPRECATIONS: "1" },
+    });
+  }
   run("git", "diff", "--staged", "--stat", "--", ...paths);
   console.log(`\nUI updated from ${repository} (${ref}). Run npm run check, then commit.`);
 }

@@ -16,7 +16,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "assets": "node scripts/assets.mjs",
-    "update-ui": "node scripts/update-ui.mjs"
+    "update-ui": "node scripts/update-ui.mjs",
+    "postinstall": "node scripts/deprecations.mjs"
   },
   "template": {
     "repository": "https://github.com/MEDomicsLab/MEDxxx-Website.git",
