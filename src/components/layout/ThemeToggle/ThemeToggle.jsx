@@ -6,13 +6,15 @@ import { fill } from "../../../lib/tokens.js";
 import Icon from "../../ui/Icon/Icon.jsx";
 import styles from "./ThemeToggle.module.css";
 
+const lightQuery = "(prefers-color-scheme: light)";
+
 const resolve = () => {
   const explicit = document.documentElement.dataset.theme;
   if (explicit === "light" || explicit === "dark") return explicit;
   if (theme.mode === "system") {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return window.matchMedia(lightQuery).matches ? "light" : "dark";
   }
-  return theme.mode === "dark" ? "dark" : "light";
+  return theme.mode === "light" ? "light" : "dark";
 };
 
 export default function ThemeToggle({ className, ...props }) {
@@ -20,7 +22,7 @@ export default function ThemeToggle({ className, ...props }) {
 
   useEffect(() => {
     setMode(resolve());
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const media = window.matchMedia(lightQuery);
     const update = () => setMode(resolve());
     const observer = new MutationObserver(update);
     observer.observe(document.documentElement, {

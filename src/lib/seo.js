@@ -47,12 +47,27 @@ export function headTags(page) {
   const url = canonicalUrl(page.path);
   const image = absolute(seo.image.src);
   const meta = (attrs) => ({ tag: "meta", attrs });
+  const themeColors =
+    theme.mode === "system"
+      ? ["dark", "light"].map((mode) =>
+          meta({
+            name: "theme-color",
+            media: `(prefers-color-scheme: ${mode})`,
+            content: theme[mode].bg,
+          })
+        )
+      : [
+          meta({
+            name: "theme-color",
+            content: theme[theme.mode === "light" ? "light" : "dark"].bg,
+          }),
+        ];
   return [
     { tag: "title", children: title },
     meta({ name: "description", content: description }),
     ...(page.noindex ? [meta({ name: "robots", content: "noindex, follow" })] : []),
     { tag: "link", attrs: { rel: "canonical", href: url } },
-    meta({ name: "theme-color", content: theme[theme.mode === "dark" ? "dark" : "light"].bg }),
+    ...themeColors,
     meta({ property: "og:type", content: "website" }),
     meta({ property: "og:site_name", content: seo.siteName }),
     meta({ property: "og:locale", content: seo.locale }),

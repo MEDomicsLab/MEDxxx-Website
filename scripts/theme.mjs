@@ -19,7 +19,7 @@ const colorLines = (colors = {}, mode = "light") => [
 ];
 
 export function themeCss(theme) {
-  const mode = theme.mode === "dark" ? "dark" : "light";
+  const mode = theme.mode === "light" ? "light" : "dark";
   const other = mode === "dark" ? "light" : "dark";
   const { accent = {}, fonts = {} } = theme;
   const base = [
@@ -53,9 +53,9 @@ export function themeCss(theme) {
   ];
   if (theme.mode === "system") {
     css.push(
-      `@media (prefers-color-scheme: dark) {\n${block(':root:not([data-theme="light"])', [
-        "color-scheme: dark;",
-        ...colorLines(theme.dark, "dark"),
+      `@media (prefers-color-scheme: light) {\n${block(':root:not([data-theme="dark"])', [
+        "color-scheme: light;",
+        ...colorLines(theme.light, "light"),
       ])}\n}`
     );
   }

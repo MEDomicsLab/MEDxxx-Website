@@ -1,6 +1,6 @@
 {
   "$schema": "./schemas/theme.schema.json",
-  "mode": "light",
+  "mode": "system",
   "light": {
     "bg": "#fbf6ec",
     "surface": "#f5eee0",

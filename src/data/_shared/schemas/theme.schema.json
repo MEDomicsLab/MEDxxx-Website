@@ -9,7 +9,7 @@
     "mode": {
       "type": "string",
       "enum": ["light", "dark", "system"],
-      "description": "Default look. Visitors can still switch when site.json → nav.themeToggle is true."
+      "description": "Default look. system follows the visitor's OS setting and falls back to dark when it cannot be read. Visitors can still switch when site.json → nav.themeToggle is true."
     },
     "light": {
       "$ref": "#/definitions/palette"
