@@ -76,6 +76,11 @@
       "enum": ["split", "center"],
       "description": "split: text left, screenshots right. center: stacked."
     },
+    "scrollExpand": {
+      "type": "boolean",
+      "deprecated": true,
+      "description": "Legacy scroll expansion option. The hero now expands on click and ignores this field."
+    },
     "expansion": {
       "type": "object",
       "description": "Click a split hero image or its label to expand it while its text slides underneath. Large screens only; static with reduced motion.",

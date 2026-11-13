@@ -105,14 +105,14 @@ for (const entry of local) {
   }
 }
 
+await reportDeprecations();
+
 if (problems.length) {
   console.error(`\n${problems.length} problem${problems.length > 1 ? "s" : ""} found:\n`);
   problems.forEach((problem) => console.error(`  • ${problem}`));
   console.error("");
   process.exit(1);
 }
-
-await reportDeprecations();
 
 console.log(
   `content ok: ${Object.keys(sections).length} sections, ${Object.keys(links).length} links, ${local.size} local assets`
