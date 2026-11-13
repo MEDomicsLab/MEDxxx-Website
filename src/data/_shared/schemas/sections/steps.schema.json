@@ -1,7 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Steps",
-  "description": "An unnumbered step list with a highlighted selection and adjacent description.",
+  "description": "This section is no longer displayed. Existing data is ignored and can be removed.",
+  "deprecated": true,
   "type": "object",
   "properties": {
     "$schema": {

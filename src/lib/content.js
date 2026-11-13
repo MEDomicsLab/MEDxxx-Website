@@ -5,7 +5,6 @@ import hero from "../data/sections/hero.json";
 import discover from "../data/sections/discover.json";
 import paper from "../data/sections/paper.json";
 import features from "../data/sections/features.json";
-import steps from "../data/sections/steps.json";
 import download from "../data/sections/download.json";
 import learn from "../data/sections/learn.json";
 
@@ -16,7 +15,6 @@ export const sections = {
   discover: fields(discover),
   paper: fields(paper),
   features: fields(features),
-  steps: fields(steps),
   download: fields(download),
   learn: fields(learn),
 };
