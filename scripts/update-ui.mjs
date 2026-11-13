@@ -26,8 +26,9 @@ run("git", "restore", "--source=FETCH_HEAD", "--staged", "--worktree", "--", ...
 const changed = lines(git("diff", "--staged", "--name-only", "--", ...paths));
 if (!changed.length) {
   console.log(`The UI already matches ${repository} (${ref}).`);
-  process.exit(0);
+} else {
+  if (changed.includes("package-lock.json")) execSync("npm ci", { stdio: "inherit" });
+  run("git", "diff", "--staged", "--stat", "--", ...paths);
+  console.log(`\nUI updated from ${repository} (${ref}). Run npm run check, then commit.`);
 }
-if (changed.includes("package-lock.json")) execSync("npm ci", { stdio: "inherit" });
-run("git", "diff", "--staged", "--stat", "--", ...paths);
-console.log(`\nUI updated from ${repository} (${ref}). Run npm run check, then commit.`);
+run(process.execPath, "scripts/deprecations.mjs");

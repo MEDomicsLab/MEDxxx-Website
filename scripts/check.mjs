@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
+import { reportDeprecations } from "./deprecations.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const data = path.join(root, "src/data");
@@ -110,6 +111,8 @@ if (problems.length) {
   console.error("");
   process.exit(1);
 }
+
+await reportDeprecations();
 
 console.log(
   `content ok: ${Object.keys(sections).length} sections, ${Object.keys(links).length} links, ${local.size} local assets`
