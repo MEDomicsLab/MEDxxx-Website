@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Features",
-  "description": "Screenshots that change while the visitor scrolls.",
+  "description": "Screenshots selected by hovering or scrolling.",
   "type": "object",
   "properties": {
     "$schema": {
@@ -21,6 +21,12 @@
     "align": {
       "type": "string",
       "enum": ["split", "center"]
+    },
+    "interaction": {
+      "type": "string",
+      "enum": ["hover", "scroll"],
+      "default": "hover",
+      "description": "hover: preview screenshots without pinning the page (default). scroll: pin the stage and select screenshots as visitors scroll. Small screens and reduced motion show a static list."
     },
     "steps": {
       "type": "array",

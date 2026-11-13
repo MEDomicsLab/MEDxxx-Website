@@ -13,7 +13,15 @@ import styles from "./Walkthrough.module.css";
 
 const pad = (value) => String(value).padStart(2, "0");
 
-export default function Walkthrough({ id, title, text, steps = [], align = "center" }) {
+export default function Walkthrough({
+  id,
+  title,
+  text,
+  steps = [],
+  align = "center",
+  interaction = "hover",
+}) {
+  const scrolling = interaction === "scroll";
   const [{ active, previous }, setSelection] = useState({ active: 0, previous: null });
   const tabs = useRef([]);
   const select = useCallback((index) => {
@@ -31,17 +39,49 @@ export default function Walkthrough({ id, title, text, steps = [], align = "cent
   }, []);
   const { scroller, go } = useScrollSequence({
     count: steps.length,
+    enabled: scrolling,
     onSelect: select,
     onProgress: progress,
   });
+
+  const reset = () => {
+    if (scrolling) return;
+    const focused = tabs.current.findIndex((tab) => tab?.querySelector(":focus-visible"));
+    select(focused < 0 ? 0 : focused);
+  };
+
+  const onKey = (event, index) => {
+    const next = {
+      ArrowDown: (index + 1) % steps.length,
+      ArrowRight: (index + 1) % steps.length,
+      ArrowUp: (index - 1 + steps.length) % steps.length,
+      ArrowLeft: (index - 1 + steps.length) % steps.length,
+      Home: 0,
+      End: steps.length - 1,
+    }[event.key];
+    if (next === undefined) return;
+    event.preventDefault();
+    tabs.current[next]?.querySelector("button")?.focus({ preventScroll: true });
+    go(next);
+  };
 
   return (
     <Section id={id}>
       <SectionHeader title={title} text={text} align={align} />
 
-      <div ref={scroller} className={styles.scroller} style={{ "--count": steps.length }}>
+      <div
+        ref={scroller}
+        className={cx(styles.scroller, scrolling && styles.scroll)}
+        style={{ "--count": steps.length }}
+      >
         <div className={styles.sticky}>
-          <div className={styles.layout}>
+          <div
+            className={styles.layout}
+            onMouseLeave={reset}
+            onBlur={(event) => {
+              if (!scrolling && !event.currentTarget.contains(event.relatedTarget)) select(0);
+            }}
+          >
             <nav className={styles.tabs} aria-label={ui.a11y.steps}>
               {steps.map((step, index) => {
                 const on = index === active;
@@ -53,6 +93,7 @@ export default function Walkthrough({ id, title, text, steps = [], align = "cent
                     }}
                     className={styles.tab}
                     data-active={on || undefined}
+                    style={scrolling ? undefined : { "--fill": on ? 1 : 0 }}
                   >
                     <span className={styles.rule} aria-hidden="true">
                       <span className={cx(styles.fill, "paper")} />
@@ -61,6 +102,13 @@ export default function Walkthrough({ id, title, text, steps = [], align = "cent
                       type="button"
                       className={styles.trigger}
                       onClick={() => go(index)}
+                      onMouseEnter={() => {
+                        if (!scrolling) select(index);
+                      }}
+                      onFocus={() => {
+                        if (!scrolling) select(index);
+                      }}
+                      onKeyDown={(event) => onKey(event, index)}
                       aria-current={on ? "step" : undefined}
                     >
                       <span className={styles.index}>{pad(index + 1)}</span>

@@ -58,10 +58,13 @@
   .scroller {
     display: block;
     position: relative;
+  }
+
+  .scroll {
     height: calc(100svh + var(--count) * 58svh);
   }
 
-  .sticky {
+  .scroll .sticky {
     position: sticky;
     top: 0;
     display: grid;
