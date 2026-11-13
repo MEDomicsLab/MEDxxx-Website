@@ -36,6 +36,9 @@
     "expand": {
       "type": "string"
     },
+    "collapse": {
+      "type": "string"
+    },
     "recommended": {
       "type": "string"
     },
@@ -90,6 +93,7 @@
     "copy",
     "copied",
     "expand",
+    "collapse",
     "notFound",
     "pdfOpen",
     "pdfFallback",

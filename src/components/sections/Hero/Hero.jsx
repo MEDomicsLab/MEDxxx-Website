@@ -58,7 +58,7 @@ export default function Hero({
   const scene = useRef(null);
   const copy = useRef(null);
   const stage = useRef(null);
-  const expandControl = useRef(null);
+  const label = useRef(null);
   const [main, inset] = media;
   const expand = layout === "split" && !!main;
   const expandLabel = expansion?.label ?? ui.expand;
@@ -67,6 +67,7 @@ export default function Hero({
     scene,
     copy,
     stage,
+    label,
     expand,
     duration: expansion?.duration ?? 0.6,
     classes: styles,
@@ -128,7 +129,6 @@ export default function Hero({
               {clickable && (
                 <button
                   type="button"
-                  ref={expandControl}
                   className={styles.expandControl}
                   aria-label={expanded ? ui.a11y.collapseHero : ui.a11y.expandHero}
                   aria-expanded={expanded}
@@ -136,20 +136,17 @@ export default function Hero({
                 />
               )}
             </div>
-            {clickable && expandLabel && (
+            {expand && expandLabel && (
               <button
+                ref={label}
                 type="button"
                 className={styles.expandLabel}
-                data-expanded={expanded || undefined}
-                aria-hidden={expanded || undefined}
-                tabIndex={expanded ? -1 : 0}
-                onClick={() => {
-                  expandControl.current?.focus({ preventScroll: true });
-                  toggle();
-                }}
+                hidden={!clickable}
+                aria-expanded={expanded}
+                onClick={toggle}
               >
                 <Icon name="cursor" size={14} className={styles.expandCursor} />
-                {fill(expandLabel)}
+                {fill(expanded ? (expansion?.collapseLabel ?? ui.collapse) : expandLabel)}
               </button>
             )}
           </div>

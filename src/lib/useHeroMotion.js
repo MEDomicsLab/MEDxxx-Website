@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { gsap } from "gsap";
 import useIsoLayoutEffect from "./useIsoLayoutEffect.js";
 
-export default function useHeroMotion({ scene, copy, stage, expand, duration, classes }) {
+export default function useHeroMotion({ scene, copy, stage, label, expand, duration, classes }) {
   const animation = useRef(null);
   const [clickable, setClickable] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -79,6 +79,20 @@ export default function useHeroMotion({ scene, copy, stage, expand, duration, cl
           },
           0
         );
+        if (label.current) {
+          timeline.fromTo(
+            label.current,
+            { x: 0, y: 0 },
+            {
+              x: () =>
+                container.getBoundingClientRect().left -
+                frame.getBoundingClientRect().left +
+                (container.clientWidth - frame.clientWidth) / 2,
+              y: () => container.clientHeight - frame.clientHeight - frame.offsetTop,
+            },
+            0
+          );
+        }
         if (main) {
           timeline.fromTo(
             main,
@@ -115,7 +129,7 @@ export default function useHeroMotion({ scene, copy, stage, expand, duration, cl
     );
 
     return () => media.revert();
-  }, [scene, copy, stage, expand, duration, classes]);
+  }, [scene, copy, stage, label, expand, duration, classes]);
 
   useIsoLayoutEffect(() => {
     if (expanded) animation.current?.play();

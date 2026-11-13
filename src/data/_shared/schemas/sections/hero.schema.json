@@ -88,7 +88,11 @@
         },
         "label": {
           "type": "string",
-          "description": "Optional override for the shared label in _shared/ui.json → expand. Omit to use the shared default, or set an empty string to hide both the label and cursor. Clicking it expands the image. Hidden while expanded and when expansion is unavailable."
+          "description": "Optional override for the shared label in _shared/ui.json → expand. Omit to use the shared default, or set an empty string to hide both the label and cursor. The label stays centred below the image and switches to the collapse label when expanded. Hidden when expansion is unavailable."
+        },
+        "collapseLabel": {
+          "type": "string",
+          "description": "Optional override for the shared collapse label in _shared/ui.json → collapse."
         }
       },
       "additionalProperties": false,

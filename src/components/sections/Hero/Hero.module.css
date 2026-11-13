@@ -106,12 +106,10 @@
   font-size: var(--text-mono);
   color: var(--color-muted);
   text-align: center;
-  transition: opacity 0.2s ease;
 }
 
-.expandLabel[data-expanded] {
-  opacity: 0;
-  pointer-events: none;
+.expandLabel[hidden] {
+  display: none;
 }
 
 .expandCursor {
