@@ -1,15 +1,10 @@
-<div align="center">
-   <p align="center">
-      <br>
-      <a href="https://www.figma.com/design/zwqoYBu3y8ETmrjNTJbYKV/Branding?node-id=4452-316">
-         <img src="docs/assets/brand/medxxx-website-blue.webp" alt="MEDxxx-Website" width="240">
-      </a>
-   </p>
-   <h1 align="center">MEDxxx-Website</h1>
-   <h4 align="center">
-      The website template for MEDomicsLab apps.
-   </h4>
-</div>
+<p align="center">
+  <a href="#make-your-website">
+    <img src="docs/assets/banner/medxxx-website-banner.webp" width="100%" alt="MEDxxx-Website template banner with previews of the starter website">
+  </a>
+</p>
+
+<p align="center"><strong>The website template for MEDomicsLab apps.</strong></p>
 
 ## <a id="make-your-website"></a><img src="docs/assets/icons/lucide/rocket.svg" width="32" alt="" /> Make your website
 
